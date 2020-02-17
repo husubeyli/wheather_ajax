@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Wheather</title>
+</head>
+
+<body>
+  <input type="text" placeholder="type city name" id="city_inp">
+  <button id="search">Search</button>
+  <!-- Retrieved data will be dumped here -->
+  <div class="city"></div>
+  <div class="wind"></div>
+  <div class="humidity"></div>
+  <div class="temp"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  var APIKey = "166a433c57516f51dfab1f7edaed8413";
+  $('#search').on('click',function(){  
+    var city = $('#city_inp').val();
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather"
+    $.ajax({
+      url: queryURL,
+      dataType: 'json',
+      data: {
+        q: city,
+        appid: APIKey
+      },
+      method: 'GET'
+    }).done(response => {
+      $('.city').html(`City name: ${response.name}`)
+      $('.wind').html(`Wind speed: ${response.wind.speed}`)
+      $('.humidity').html(`Wheather humidity: ${response.main.humidity}`)
+      $('.temp').html(`Wheather temperatur: ${response.main.temp-273.15}C`)
+
+    })
+  })    // Things to accomplish:
+    // Get an API Key from OpenWeatherMap API
+    // Create an AJAX call to retrieve data Log the data in console
+    // Log the data in HTML
+    // Scream Ushindi (victory in Swahili)! at the top of your lungs
+  </script>
+
+</body>
+
+</html>
